@@ -18,17 +18,15 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { FiLogOut } from 'react-icons/fi';
-import { FiUser } from 'react-icons/fi';
 import { IoIosArrowDown } from 'react-icons/io';
 //import userApi from '../../api/userApi';
 
 export default function Header() {
   const { colorMode, toggleColorMode } = useColorMode();
   //const { isOpen, onOpen, onClose } = useDisclosure();
-  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('account'));
 
   const onPressSignOut = async () => {
@@ -36,10 +34,6 @@ export default function Header() {
       localStorage.clear();
       window.location.href = '/';
     });
-  };
-
-  const onPressProfile = () => {
-    return navigate(`/profile/${user?.uid}`);
   };
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,16 +45,22 @@ export default function Header() {
   }, [isLoggedIn]);
   return (
     <>
-      <Box bg={useColorModeValue('gray.100', '#2d4e3d')} px={4} w='full'>
+      <Box
+        px={4}
+        w='full'
+        backgroundColor='rgba(255,255, 255, 0.8)'
+        backdropFilter='saturate(180%) blur(5px)'
+        sx={{
+          position: 'fixed',
+        }}>
         <Container maxW='container.xl'>
           <Flex h='16' alignItems='center' justifyContent='space-between'>
             <Link to='/'>
               <Box
                 fontSize='xl'
                 fontWeight='bold'
-                bg={useColorModeValue('gray.100', '#2d4e3d')}
                 _hover={{
-                  color: 'green.500',
+                  color: 'green.800',
                   cursor: 'pointer',
                 }}>
                 Notice Me 📝
@@ -117,15 +117,6 @@ export default function Header() {
                       </Center>
 
                       <MenuDivider />
-
-                      <MenuItem onClick={onPressProfile}>
-                        <Stack direction='row' spacing={1}>
-                          <Box py='1'>
-                            <FiUser />
-                          </Box>
-                          <Box>Profile</Box>
-                        </Stack>
-                      </MenuItem>
 
                       <MenuItem onClick={onPressSignOut}>
                         <Stack direction='row' spacing={1}>

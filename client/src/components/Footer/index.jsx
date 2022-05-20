@@ -70,7 +70,7 @@ export default function Footer() {
 
             <chakra.a
               target={'_blank'}
-              href='https://github.com/dosylong/CookIt-Project'
+              href='https://github.com/dosylong/react-todolist'
               mx='2'
               color='gray.600'
               _dark={{ color: 'gray.300', _hover: { color: 'gray.400' } }}
