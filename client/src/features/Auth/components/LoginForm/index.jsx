@@ -19,14 +19,12 @@ import { Form, Formik } from 'formik';
 import React from 'react';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import * as yup from 'yup';
 import { Link } from 'react-router-dom';
 
 export default function LoginForm(props) {
-  const { showPassword, setShowPassword, onPressLogin, onPressLoginGoogle } =
-    props;
+  const { showPassword, setShowPassword, onPressLogin } = props;
 
   const initialValues = {
     email: '',
@@ -53,25 +51,8 @@ export default function LoginForm(props) {
         </Text>
       </Box>
 
-      <Box py='3'>
+      <Box py='5'>
         <Flex align='center'>
-          <Box
-            w='full'
-            borderTopWidth='2px'
-            h='3px'
-            borderTopColor='gray.200'
-          />
-          <Text
-            ml='3'
-            mr='3'
-            fontFamily='body'
-            whiteSpace='nowrap'
-            fontWeight='semibold'
-            textTransform='uppercase'
-            fontSize='sm'
-            color='gray.200'>
-            or
-          </Text>
           <Box
             w='full'
             borderTopWidth='2px'

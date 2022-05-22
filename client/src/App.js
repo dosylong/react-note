@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import customTheme from './theme';
-import Auth from './features/Auth/index';
+import Auth from './features/Auth';
+import Todo from './features/Todo';
+import Home from './components/Home';
 import Layout from './layout';
 import './App.css';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
@@ -35,7 +37,10 @@ function App() {
             element={!user ? <Auth /> : <Navigate to='/' replace />}
           />
 
-          <Route path='/' element={<Layout />}></Route>
+          <Route path='/' element={<Layout />}>
+            <Route path='todo/*' element={<Todo />} />
+            <Route path='/' element={<Home />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </ChakraProvider>

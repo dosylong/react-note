@@ -3,15 +3,13 @@ import { Outlet } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { Box, Container } from '@chakra-ui/react';
-import Banner from '../components/Banner';
 
 export default function Layout() {
   return (
     <>
       <Header />
-      <Banner />
-      <Container as='main' mt='20'>
-        <Box minH='20vh' maxH='auto' px={4}>
+      <Container maxWidth='container.xl'>
+        <Box minH='auto' maxH='auto' py='20' minW='auto' maxW='auto'>
           <Outlet />
         </Box>
       </Container>

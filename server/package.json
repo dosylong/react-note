@@ -1,0 +1,35 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "My server for TODO project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dosylong/react-todolist.git"
+  },
+  "keywords": [
+    "TODO"
+  ],
+  "author": "Long Do",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dosylong/react-todolist/issues"
+  },
+  "homepage": "https://github.com/dosylong/react-todolist#readme",
+  "dependencies": {
+    "@prisma/client": "^3.14.0",
+    "cors": "^2.8.5",
+    "express": "^4.18.1"
+  },
+  "prisma": {
+    "schema": "src/models/prisma/schema.prisma"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16",
+    "prisma": "^3.14.0"
+  }
+}

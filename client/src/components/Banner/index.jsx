@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Image,
-  Box,
   Stack,
   Text,
   useBreakpointValue,
@@ -13,8 +12,8 @@ import BannerImage from '../../assets/banner.png';
 
 export default function Banner() {
   return (
-    <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }} py='140'>
-      <Flex p={8} flex={1} align={'center'} justify={'center'} pb='200'>
+    <Stack direction={{ base: 'column', md: 'row' }}>
+      <Flex p={8} flex={1} align={'center'} justify={'center'}>
         <Stack spacing={6} w={'full'} maxW={'lg'}>
           <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
             <Text
@@ -63,6 +62,7 @@ export default function Banner() {
           w='50vw'
           h='50vh'
           px='50'
+          mr='2'
         />
       </Flex>
     </Stack>

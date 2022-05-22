@@ -11,23 +11,25 @@ import {
   MenuItem,
   MenuDivider,
   //useDisclosure,
-  useColorModeValue,
+  //useColorModeValue,
   Stack,
   useColorMode,
   Center,
   Text,
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase';
 import { FiLogOut } from 'react-icons/fi';
 import { IoIosArrowDown } from 'react-icons/io';
-//import userApi from '../../api/userApi';
+import userApi from '../../api/userApi';
+import { AddIcon } from '@chakra-ui/icons';
 
 export default function Header() {
   const { colorMode, toggleColorMode } = useColorMode();
   //const { isOpen, onOpen, onClose } = useDisclosure();
-  const user = JSON.parse(localStorage.getItem('account'));
+  //const user = JSON.parse(localStorage.getItem('account'));
+  const navigate = useNavigate();
 
   const onPressSignOut = async () => {
     await auth.signOut().then(() => {
@@ -36,7 +38,28 @@ export default function Header() {
     });
   };
 
+  const onPressAddTodo = () => {
+    navigate('/todo/add-todo');
+  };
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userProfile, setUserProfile] = useState({});
+
+  useEffect(() => {
+    const currentUser = auth.currentUser;
+    if (!currentUser) return;
+    const getUserProfile = async () => {
+      try {
+        const response = await userApi.getUser({
+          userFirebaseId: currentUser.uid,
+        });
+        setUserProfile(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUserProfile();
+  }, []);
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -74,6 +97,15 @@ export default function Header() {
                     {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
                   </Button>
 
+                  <Button
+                    variant={'solid'}
+                    colorScheme={'green'}
+                    size={'md'}
+                    onClick={onPressAddTodo}
+                    leftIcon={<AddIcon />}>
+                    Add Todo
+                  </Button>
+
                   <Menu autoSelect={false}>
                     <MenuButton
                       rounded='full'
@@ -84,9 +116,9 @@ export default function Header() {
                         <Avatar
                           size='sm'
                           src={
-                            !user?.photoURL
+                            !userProfile?.photoURL
                               ? 'https://avatars.dicebear.com/api/micah/69.svg'
-                              : user?.photoURL
+                              : userProfile?.photoURL
                           }
                         />
 
@@ -101,17 +133,17 @@ export default function Header() {
                         <Avatar
                           size='2xl'
                           src={
-                            !user?.photoURL
+                            !userProfile?.photoURL
                               ? 'https://avatars.dicebear.com/api/micah/69.svg'
-                              : user?.photoURL
+                              : userProfile?.photoURL
                           }
                         />
                       </Center>
 
                       <Center h='50px'>
-                        {user ? (
+                        {userProfile ? (
                           <Stack direction='row' spacing={1}>
-                            <Text>{user?.displayName}</Text>
+                            <Text>{userProfile?.name}</Text>
                           </Stack>
                         ) : null}
                       </Center>
