@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Image,
-  Stack,
-  Text,
-  useBreakpointValue,
-  Flex,
-  Heading,
-  Button,
-} from '@chakra-ui/react';
+import { Image, Stack, Text, Flex, Heading } from '@chakra-ui/react';
 import BannerImage from '../../assets/banner.png';
 
 export default function Banner() {
@@ -16,21 +8,7 @@ export default function Banner() {
       <Flex p={8} flex={1} align={'center'} justify={'center'}>
         <Stack spacing={6} w={'full'} maxW={'lg'}>
           <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
-            <Text
-              as={'span'}
-              position={'relative'}
-              _after={{
-                content: "''",
-                width: 'full',
-                height: useBreakpointValue({ base: '20%', md: '30%' }),
-                position: 'absolute',
-                bottom: 1,
-                left: 0,
-                bg: 'green.400',
-                zIndex: -1,
-              }}>
-              Notice Me
-            </Text>
+            <Text as={'span'}>Notice Me</Text>
             <br />{' '}
             <Text color={'green.400'} as={'span'}>
               Todo List Project
@@ -38,32 +16,13 @@ export default function Banner() {
           </Heading>
           <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
             The project board is an exclusive resource for contract work. It's
-            perfect for freelancers, agencies, and moonlighters.
+            perfect for everyone who wants to take notes on everything they
+            want.
           </Text>
-          <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
-            <Button
-              rounded={'full'}
-              bg={'green.400'}
-              color={'white'}
-              _hover={{
-                bg: 'green.500',
-              }}>
-              Add Todo
-            </Button>
-            <Button rounded={'full'}>How It Works</Button>
-          </Stack>
         </Stack>
       </Flex>
       <Flex flex={1}>
-        <Image
-          alt={'Login Image'}
-          objectFit={'cover'}
-          src={BannerImage}
-          w='50vw'
-          h='50vh'
-          px='50'
-          mr='2'
-        />
+        <Image alt={'Login Image'} objectFit={'cover'} src={BannerImage} />
       </Flex>
     </Stack>
   );

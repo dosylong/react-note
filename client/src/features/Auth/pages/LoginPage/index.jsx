@@ -1,5 +1,5 @@
 import { Box, Center, Container, Image, Stack } from '@chakra-ui/react';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import LoginForm from '../../components/LoginForm';
 import { auth } from '../../../../firebase';
 import { toast, ToastContainer } from 'react-toastify';

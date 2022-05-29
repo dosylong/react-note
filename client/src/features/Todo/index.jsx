@@ -1,11 +1,16 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import AddTodoPage from './pages/AddTodoPage';
 
 export default function Todo() {
+  let location = useLocation();
   return (
-    <Routes>
-      <Route path='add-todo' element={<AddTodoPage />} />
-    </Routes>
+    <>
+      {location.state?.backgroundLocation && (
+        <Routes>
+          <Route path='add' element={<AddTodoPage />} />
+        </Routes>
+      )}
+    </>
   );
 }
