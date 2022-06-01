@@ -14,16 +14,16 @@ import React from 'react';
 import { BsClipboardCheck } from 'react-icons/bs';
 import * as yup from 'yup';
 
-export default function AddTodoForm(props) {
-  const { onPressAddTodo } = props;
+export default function EditTodoForm(props) {
+  const { onPressEditTodo, myTodo } = props;
 
   const initialValues = {
-    title: '',
-    description: '',
+    title: myTodo.title,
+    description: myTodo.description,
   };
 
-  const handleSubmitTodo = (values) => {
-    onPressAddTodo(values);
+  const handleEditTodo = (values) => {
+    onPressEditTodo(values);
   };
 
   const todoSchema = yup.object().shape({
@@ -37,7 +37,7 @@ export default function AddTodoForm(props) {
         initialValues={initialValues}
         validationSchema={todoSchema}
         onSubmit={(values) => {
-          handleSubmitTodo(values);
+          handleEditTodo(values);
           return new Promise((resolve) => {
             setTimeout(resolve, 1500);
           });

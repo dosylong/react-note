@@ -9,7 +9,8 @@ export default function Layout() {
     <>
       <Header />
       <Container maxWidth='container.xl'>
-        <Box minH='78vh' maxH='auto' py='20' minW='auto' maxW='auto'>
+        {/* 78vh */}
+        <Box minH='100vh' maxH='auto' py='20' minW='auto' maxW='auto'>
           <Outlet />
         </Box>
       </Container>

@@ -11,7 +11,7 @@ import {
   MenuItem,
   MenuDivider,
   //useDisclosure,
-  //useColorModeValue,
+  useColorModeValue,
   Stack,
   useColorMode,
   Center,
@@ -69,7 +69,10 @@ export default function Header() {
       <Box
         px={4}
         w='full'
-        backgroundColor='rgba(255,255, 255, 0.8)'
+        backgroundColor={useColorModeValue(
+          'rgba(255,255, 255, 0.8)',
+          'rgba(255,255, 255, 0.1)'
+        )}
         backdropFilter='saturate(180%) blur(5px)'
         sx={{
           position: 'fixed',

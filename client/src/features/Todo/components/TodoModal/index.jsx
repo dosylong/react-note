@@ -12,7 +12,7 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function TodoModal(props) {
-  const { modalBody } = props;
+  const { modalBody, modalTitle } = props;
   let location = useLocation();
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ export default function TodoModal(props) {
         onClose={() => navigate(-1)}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create TODO Form</ModalHeader>
+          <ModalHeader>{modalTitle}</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>{modalBody}</ModalBody>
         </ModalContent>

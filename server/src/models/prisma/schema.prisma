@@ -25,5 +25,5 @@ model Todo {
   completed   Boolean?
   createdAt   DateTime? @default(now())
   updatedAt   DateTime? @default(now())
-  User        User?     @relation(fields: [userId], references: [userFirebaseId])
+  User        User?     @relation(fields: [userId], references: [userFirebaseId], onDelete: Cascade)
 }
