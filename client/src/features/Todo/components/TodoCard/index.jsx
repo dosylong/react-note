@@ -11,12 +11,11 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 import moment from 'moment';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function TodoCard(props) {
   const { myTodo, handleDeleteTodo } = props;
   const location = useLocation();
-  const { id } = useParams();
 
   return (
     <>
@@ -66,7 +65,7 @@ export default function TodoCard(props) {
           </Box>
           <Divider orientation='horizontal' mt='2' mb='3' />
           <Stack direction={'row'} justify={'center'} mb='2'>
-            <Stack flex={1} spacing={1} align={'center'} pt='2'>
+            <Stack flex={1} spacing={1} align={'center'} py='3'>
               <Text as='span' fontSize={{ base: 'xs', sm: 'sm' }}>
                 {moment(myTodo.createdAt).fromNow() ? (
                   <Text color='black' fontSize='md'>
@@ -88,7 +87,7 @@ export default function TodoCard(props) {
                 py={2}
                 roundedBottom='lg'>
                 <Link
-                  to={`todo/edit/${id}`}
+                  to={`todo/edit/${myTodo.id}`}
                   state={{ backgroundLocation: location }}>
                   <chakra.button
                     px={2}
@@ -109,24 +108,27 @@ export default function TodoCard(props) {
                   </chakra.button>
                 </Link>
 
-                <chakra.button
-                  px={2}
-                  py={1}
-                  bg='white'
-                  onClick={() => handleDeleteTodo(myTodo.id)}
-                  fontSize='lg'
-                  color='gray.900'
-                  fontWeight='bold'
-                  rounded='lg'
-                  textTransform='uppercase'
-                  _hover={{
-                    bg: 'green.200',
-                  }}
-                  _focus={{
-                    bg: 'green.400',
-                  }}>
-                  Delete
-                </chakra.button>
+                <Link
+                  to={`todo/delete/${myTodo.id}`}
+                  state={{ backgroundLocation: location }}>
+                  <chakra.button
+                    px={2}
+                    py={1}
+                    bg='white'
+                    fontSize='lg'
+                    color='gray.900'
+                    fontWeight='bold'
+                    rounded='lg'
+                    textTransform='uppercase'
+                    _hover={{
+                      bg: 'red.200',
+                    }}
+                    _focus={{
+                      bg: 'red.400',
+                    }}>
+                    Delete
+                  </chakra.button>
+                </Link>
               </Flex>
             </Stack>
           </Stack>

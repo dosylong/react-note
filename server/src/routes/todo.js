@@ -11,10 +11,10 @@ router.delete('/delete', TodoController.deleteTodo);
 //router UPDATE todo/update
 router.put('/update', TodoController.editTodo);
 
+//router GET todo/get
+router.get('/get', TodoController.getTodoById);
+
 //router GET todo/get/all
 router.get('/get/all', TodoController.getAllTodo);
-
-//router GET todo/get/id
-router.get('/get/id', TodoController.getTodoById);
 
 module.exports = router;

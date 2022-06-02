@@ -33,89 +33,93 @@ export default function EditTodoForm(props) {
 
   return (
     <>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={todoSchema}
-        onSubmit={(values) => {
-          handleEditTodo(values);
-          return new Promise((resolve) => {
-            setTimeout(resolve, 1500);
-          });
-        }}>
-        {({
-          handleChange,
-          handleSubmit,
-          values,
-          errors,
-          touched,
-          isSubmitting,
-        }) => (
-          <Form>
-            <VStack spacing='5'>
-              <FormControl isRequired isInvalid={errors.title && touched.title}>
-                <FormLabel htmlFor='title' fontWeight='bold'>
-                  Title
-                </FormLabel>
-                <InputGroup>
-                  <InputLeftElement
-                    pointerEvents='none'
-                    children={<BsClipboardCheck color='gray' />}
-                  />
-                  <Input
-                    id='title'
-                    type='text'
-                    placeholder='Title'
-                    onChange={handleChange}
-                    value={values.title}
-                    focusBorderColor='green.400'
-                    sx={{
-                      borderRadius: '9px',
-                    }}
-                  />
-                </InputGroup>
-                <FormErrorMessage>{errors.title}</FormErrorMessage>
-              </FormControl>
+      {Object.keys(myTodo).length > 0 && (
+        <Formik
+          initialValues={initialValues}
+          validationSchema={todoSchema}
+          onSubmit={(values) => {
+            handleEditTodo(values);
+            return new Promise((resolve) => {
+              setTimeout(resolve, 1500);
+            });
+          }}>
+          {({
+            handleChange,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+            isSubmitting,
+          }) => (
+            <Form>
+              <VStack spacing='5'>
+                <FormControl
+                  isRequired
+                  isInvalid={errors.title && touched.title}>
+                  <FormLabel htmlFor='title' fontWeight='bold'>
+                    Title
+                  </FormLabel>
+                  <InputGroup>
+                    <InputLeftElement
+                      pointerEvents='none'
+                      children={<BsClipboardCheck color='gray' />}
+                    />
+                    <Input
+                      id='title'
+                      type='text'
+                      placeholder='Title'
+                      onChange={handleChange}
+                      value={values.title}
+                      focusBorderColor='green.400'
+                      sx={{
+                        borderRadius: '9px',
+                      }}
+                    />
+                  </InputGroup>
+                  <FormErrorMessage>{errors.title}</FormErrorMessage>
+                </FormControl>
 
-              <FormControl
-                isRequired
-                isInvalid={errors.description && touched.description}>
-                <FormLabel htmlFor='description' fontWeight='bold'>
-                  Description
-                </FormLabel>
+                <FormControl
+                  isRequired
+                  isInvalid={errors.description && touched.description}>
+                  <FormLabel htmlFor='description' fontWeight='bold'>
+                    Description
+                  </FormLabel>
 
-                <InputGroup>
-                  <Textarea
-                    id='description'
-                    type='text'
-                    placeholder='Description'
-                    onChange={handleChange}
-                    value={values.description}
-                    focusBorderColor='green.400'
-                    sx={{
-                      borderRadius: '9px',
-                    }}
-                  />
-                </InputGroup>
-                <FormErrorMessage>{errors.description}</FormErrorMessage>
-              </FormControl>
+                  <InputGroup>
+                    <Textarea
+                      id='description'
+                      type='text'
+                      placeholder='Description'
+                      onChange={handleChange}
+                      value={values.description}
+                      focusBorderColor='green.400'
+                      sx={{
+                        borderRadius: '9px',
+                      }}
+                    />
+                  </InputGroup>
+                  <FormErrorMessage>{errors.description}</FormErrorMessage>
+                </FormControl>
 
-              <Button
-                w='full'
-                colorScheme='green'
-                sx={{
-                  borderRadius: '9px',
-                }}
-                isLoading={isSubmitting}
-                loadingText={isSubmitting && 'Saving...'}
-                boxShadow='xl'
-                type='submit'
-                onClick={handleSubmit}>
-                Save
-              </Button>
-            </VStack>
-          </Form>
-        )}
-      </Formik>
+                <Button
+                  w='full'
+                  colorScheme='green'
+                  sx={{
+                    borderRadius: '9px',
+                  }}
+                  isLoading={isSubmitting}
+                  loadingText={isSubmitting && 'Editing...'}
+                  boxShadow='xl'
+                  type='submit'
+                  onClick={handleSubmit}>
+                  Edit
+                </Button>
+              </VStack>
+            </Form>
+          )}
+        </Formik>
+      )}
     </>
   );
 }

@@ -34,7 +34,7 @@ export default function TodoPage() {
     <>
       <TodoModal
         modalBody={<AddTodoForm onPressAddTodo={onPressAddTodo} />}
-        modalTitle='Add Todo'
+        modalTitle='Add TODO'
       />
       <ToastContainer />
     </>

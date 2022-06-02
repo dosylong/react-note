@@ -7,27 +7,29 @@ import { useNavigate, useParams } from 'react-router-dom';
 import EditTodoForm from '../../components/EditTodoForm';
 
 export default function EditTodoPage() {
-  const user = JSON.parse(localStorage.getItem('account'));
   const navigate = useNavigate();
   const [myTodo, setMyTodo] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
     const getMyOwnTodo = async () => {
-      const response = await todoApi.getTodoById({
-        id: id,
-      });
-      setMyTodo(response);
+      try {
+        const response = await todoApi.getTodoById({
+          id: id,
+        });
+        setMyTodo(response);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getMyOwnTodo();
-  }, [id, user]);
+  }, [id]);
 
-  const onPressEditTodo = async () => {
-    if (!user) return;
+  const onPressEditTodo = async (values) => {
     try {
       const response = await todoApi.editTodo({
-        title: myTodo.title,
-        description: myTodo.description,
+        title: values.title,
+        description: values.description,
         id: id,
       });
       toast.success('Todo edited successfully!', {
@@ -48,7 +50,7 @@ export default function EditTodoPage() {
         modalBody={
           <EditTodoForm onPressEditTodo={onPressEditTodo} myTodo={myTodo} />
         }
-        modalTitle='Edit Todo'
+        modalTitle='Edit TODO'
       />
       <ToastContainer />
     </>

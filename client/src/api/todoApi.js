@@ -9,16 +9,16 @@ const todoApi = {
     const url = 'todo/get/all';
     return axiosClient.get(url);
   },
-  deleteTodo: (params) => {
+  deleteTodo: (data) => {
     const url = 'todo/delete';
-    return axiosClient.delete(url, { params });
+    return axiosClient.delete(url, data);
   },
   editTodo: (data) => {
     const url = 'todo/update';
     return axiosClient.put(url, data);
   },
   getTodoById: (params) => {
-    const url = 'todo/get/id';
+    const url = 'todo/get';
     return axiosClient.get(url, { params });
   },
 };

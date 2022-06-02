@@ -29,7 +29,7 @@ class TodoController {
     try {
       const response = await prisma.todo.delete({
         where: {
-          id: parseInt(req.query.id),
+          id: req.body.id,
         },
       });
       res.status(200).json(response);
@@ -41,7 +41,11 @@ class TodoController {
     try {
       const response = await prisma.todo.update({
         where: {
-          id: parseInt(req.query.id),
+          id: Number(req.body.id),
+        },
+        data: {
+          title: req.body.title,
+          description: req.body.description,
         },
       });
       res.status(200).json(response);
@@ -51,9 +55,9 @@ class TodoController {
   };
   getTodoById = async (req, res, next) => {
     try {
-      const response = await prisma.todo.findUnique({
+      const response = await prisma.todo.findFirst({
         where: {
-          id: parseInt(req.query.id),
+          id: Number(req.query.id),
         },
       });
       res.status(200).json(response);
