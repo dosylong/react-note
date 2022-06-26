@@ -11,7 +11,7 @@ const todoApi = {
   },
   deleteTodo: (data) => {
     const url = 'todo/delete';
-    return axiosClient.delete(url, data);
+    return axiosClient.delete(url, { data });
   },
   editTodo: (data) => {
     const url = 'todo/update';
@@ -20,6 +20,14 @@ const todoApi = {
   getTodoById: (params) => {
     const url = 'todo/get';
     return axiosClient.get(url, { params });
+  },
+  getTodoByUserId: (params) => {
+    const url = 'todo/userId';
+    return axiosClient.get(url, { params });
+  },
+  checkTodoCompleted: (data) => {
+    const url = 'todo/completed';
+    return axiosClient.patch(url, data);
   },
 };
 

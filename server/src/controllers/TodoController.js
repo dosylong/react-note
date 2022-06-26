@@ -3,13 +3,14 @@ const prisma = require('../models/prisma');
 class TodoController {
   addTodo = async (req, res, next) => {
     try {
-      const { userId, title, description } = req.body;
+      const { userId, title, description, isCompleted } = req.body;
 
       const response = await prisma.todo.create({
         data: {
           title: title,
           description: description,
           userId: userId,
+          isCompleted: isCompleted,
         },
       });
       res.status(200).json(response);
@@ -29,7 +30,7 @@ class TodoController {
     try {
       const response = await prisma.todo.delete({
         where: {
-          id: req.body.id,
+          id: Number(req.body.id),
         },
       });
       res.status(200).json(response);
@@ -55,9 +56,38 @@ class TodoController {
   };
   getTodoById = async (req, res, next) => {
     try {
-      const response = await prisma.todo.findFirst({
+      const response = await prisma.todo.findUnique({
         where: {
           id: Number(req.query.id),
+        },
+      });
+      res.status(200).json(response);
+    } catch (error) {
+      return next(error);
+    }
+  };
+  getTodoByUserId = async (req, res, next) => {
+    try {
+      const response = await prisma.todo.findUnique({
+        where: {
+          user: {
+            userId: String(req.query.userId),
+          },
+        },
+      });
+      res.status(200).json(response);
+    } catch (error) {
+      return next(error);
+    }
+  };
+  checkTodoCompleted = async (req, res, next) => {
+    try {
+      const response = await prisma.todo.update({
+        where: {
+          id: Number(req.body.id),
+        },
+        data: {
+          isCompleted: true,
         },
       });
       res.status(200).json(response);

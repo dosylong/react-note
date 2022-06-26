@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import TodoModal from '../../components/TodoModal';
+import React, { useState, useEffect } from 'react';
+import DeleteTodoModal from '../../components/DeleteTodoModal';
 import todoApi from '../../../../api/todoApi';
+import { useParams, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate, useParams } from 'react-router-dom';
-import EditTodoForm from '../../components/EditTodoForm';
 
-export default function EditTodoPage() {
-  const navigate = useNavigate();
+export default function DeleteTodoPage() {
   const [myTodo, setMyTodo] = useState([]);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getMyOwnTodo = async () => {
@@ -25,33 +24,25 @@ export default function EditTodoPage() {
     getMyOwnTodo();
   }, [id]);
 
-  const onPressEditTodo = async (values) => {
+  const handleDeleteTodo = async () => {
     try {
-      const response = await todoApi.editTodo({
-        title: values.title,
-        description: values.description,
+      const response = await todoApi.deleteTodo({
         id: myTodo.id,
       });
-      toast.success('Edited successfully!', {
+      console.log('Deleted: ', response);
+      toast.success('Deleted successfully!', {
         autoClose: 1200,
       });
       setTimeout(() => {
         navigate('/');
-      }, 1800);
-      console.log(response);
+      }, 1400);
     } catch (error) {
       console.log(error);
     }
   };
-
   return (
     <>
-      <TodoModal
-        modalBody={
-          <EditTodoForm onPressEditTodo={onPressEditTodo} myTodo={myTodo} />
-        }
-        modalTitle='Edit TODO'
-      />
+      <DeleteTodoModal myTodo={myTodo} handleDeleteTodo={handleDeleteTodo} />
       <ToastContainer />
     </>
   );

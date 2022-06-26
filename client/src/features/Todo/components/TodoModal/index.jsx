@@ -20,6 +20,8 @@ export default function TodoModal(props) {
     <>
       <Modal
         isOpen={location.state?.backgroundLocation ? true : false}
+        blockScrollOnMount={false}
+        isCentered
         onClose={() => navigate(-1)}>
         <ModalOverlay />
         <ModalContent>

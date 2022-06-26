@@ -1,5 +1,12 @@
 import React from 'react';
-import { Image, Stack, Text, Flex, Heading } from '@chakra-ui/react';
+import {
+  Image,
+  Stack,
+  Text,
+  Flex,
+  Heading,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import BannerImage from '../../assets/banner.png';
 
 export default function Banner() {
@@ -14,7 +21,9 @@ export default function Banner() {
               Todo List Project
             </Text>{' '}
           </Heading>
-          <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
+          <Text
+            fontSize={{ base: 'md', lg: 'lg' }}
+            color={useColorModeValue('gray.500', 'gray.300')}>
             The project board is an exclusive resource for contract work. It's
             perfect for everyone who wants to take notes on everything they
             want.

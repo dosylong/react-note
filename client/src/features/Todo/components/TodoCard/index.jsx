@@ -1,6 +1,5 @@
 import {
   Box,
-  Flex,
   useColorModeValue,
   chakra,
   Image,
@@ -8,14 +7,16 @@ import {
   Heading,
   Divider,
   Stack,
+  Tooltip,
 } from '@chakra-ui/react';
 import React from 'react';
 import moment from 'moment';
 import { Link, useLocation } from 'react-router-dom';
 
 export default function TodoCard(props) {
-  const { myTodo, handleDeleteTodo } = props;
+  const { todo } = props;
   const location = useLocation();
+  const bg = useColorModeValue('white', 'gray.700');
 
   return (
     <>
@@ -25,6 +26,7 @@ export default function TodoCard(props) {
         borderRadius='lg'
         overflow='hidden'
         boxShadow='lg'
+        bg={bg}
         _hover={{
           boxShadow: '2xl',
         }}>
@@ -34,15 +36,22 @@ export default function TodoCard(props) {
           mt={-6}
           mx={-6}
           mb={{ base: '2', sm: '6' }}>
-          <Image
-            height={{ base: '150px', sm: '300px' }}
-            loading='eager'
-            w={'full'}
-            src='https://www.sunnyskyz.com/uploads/2021/03/ufp23-cat-with-bowl-cut-2.jpg'
-            objectFit={'cover'}
-            cursor='pointer'
-          />
+          <Link
+            to={`todo/detail/${todo.id}`}
+            state={{ backgroundLocation: location }}>
+            <Tooltip hasArrow label='Show more' bg='gray.300' color='black'>
+              <Image
+                height={{ base: '150px', sm: '300px' }}
+                loading='eager'
+                w={'full'}
+                src='https://www.sunnyskyz.com/uploads/2021/03/ufp23-cat-with-bowl-cut-2.jpg'
+                objectFit={'cover'}
+                cursor='pointer'
+              />
+            </Tooltip>
+          </Link>
         </Box>
+
         <Box px='4'>
           <Text
             color={'green.400'}
@@ -50,86 +59,83 @@ export default function TodoCard(props) {
             fontWeight={{ base: 600, sm: 800 }}
             fontSize={{ base: 'xs', sm: 'sm' }}
             letterSpacing={1}
-            mb={{ base: 'xs', sm: '1.5' }}
-            cursor='pointer'>
-            {myTodo.title}
+            mb={{ base: 'xs', sm: '1.5' }}>
+            {todo.title}
           </Text>
           <Box minH='56px'>
             <Heading
-              display='block'
+              noOfLines={3}
               color={useColorModeValue('gray.700', 'white')}
               fontSize={{ base: 'xs', sm: 'md', md: 'md' }}
               fontFamily={'body'}>
-              {myTodo.description}
+              {todo.description}
             </Heading>
           </Box>
           <Divider orientation='horizontal' mt='2' mb='3' />
-          <Stack direction={'row'} justify={'center'} mb='2'>
-            <Stack flex={1} spacing={1} align={'center'} py='3'>
+          <Stack direction={'row'} justify={'flex-start'} mb='2'>
+            <Stack flex={1} spacing={1} align={'flex-start'} py='3'>
               <Text as='span' fontSize={{ base: 'xs', sm: 'sm' }}>
-                {moment(myTodo.createdAt).fromNow() ? (
-                  <Text color='black' fontSize='md'>
-                    Created at: {moment(myTodo.createdAt).fromNow()}
-                  </Text>
-                ) : (
-                  <Text color='black' fontSize='md'>
-                    Updated at: {moment(myTodo.updatedAt).fromNow()}
-                  </Text>
-                )}
+                <Text color={useColorModeValue('black', 'white')} fontSize='md'>
+                  Changed at:{' '}
+                  {moment(
+                    todo.createdAt ? todo.updatedAt : todo.createdAt
+                  ).fromNow()}
+                </Text>
               </Text>
             </Stack>
+          </Stack>
 
-            <Stack flex={1} spacing={1} align={'flex-end'}>
-              <Flex
-                alignItems='center'
-                justifyContent='space-between'
-                px={4}
-                py={2}
-                roundedBottom='lg'>
-                <Link
-                  to={`todo/edit/${myTodo.id}`}
-                  state={{ backgroundLocation: location }}>
-                  <chakra.button
-                    px={2}
-                    py={1}
-                    bg='white'
-                    fontSize='lg'
-                    color='gray.900'
-                    fontWeight='bold'
-                    rounded='lg'
-                    textTransform='uppercase'
-                    _hover={{
-                      bg: 'green.200',
-                    }}
-                    _focus={{
-                      bg: 'green.400',
-                    }}>
-                    Edit
-                  </chakra.button>
-                </Link>
+          <Stack justify={'flex-end'}>
+            <Stack
+              spacing={4}
+              direction='row'
+              alignItems='flex-end'
+              justifyContent='flex-end'
+              py={2}
+              roundedBottom='lg'>
+              <Link
+                to={`todo/edit/${todo.id}`}
+                state={{ backgroundLocation: location }}>
+                <chakra.button
+                  px={4}
+                  py={1}
+                  bg='green.200'
+                  fontSize='lg'
+                  color='gray.900'
+                  fontWeight='bold'
+                  rounded='lg'
+                  textTransform='uppercase'
+                  _hover={{
+                    bg: 'green.300',
+                  }}
+                  _focus={{
+                    bg: 'green.400',
+                  }}>
+                  Edit
+                </chakra.button>
+              </Link>
 
-                <Link
-                  to={`todo/delete/${myTodo.id}`}
-                  state={{ backgroundLocation: location }}>
-                  <chakra.button
-                    px={2}
-                    py={1}
-                    bg='white'
-                    fontSize='lg'
-                    color='gray.900'
-                    fontWeight='bold'
-                    rounded='lg'
-                    textTransform='uppercase'
-                    _hover={{
-                      bg: 'red.200',
-                    }}
-                    _focus={{
-                      bg: 'red.400',
-                    }}>
-                    Delete
-                  </chakra.button>
-                </Link>
-              </Flex>
+              <Link
+                to={`todo/delete/${todo.id}`}
+                state={{ backgroundLocation: location }}>
+                <chakra.button
+                  px={4}
+                  py={1}
+                  bg='red.200'
+                  fontSize='lg'
+                  color='gray.900'
+                  fontWeight='bold'
+                  rounded='lg'
+                  textTransform='uppercase'
+                  _hover={{
+                    bg: 'red.300',
+                  }}
+                  _focus={{
+                    bg: 'red.400',
+                  }}>
+                  Delete
+                </chakra.button>
+              </Link>
             </Stack>
           </Stack>
         </Box>

@@ -18,7 +18,7 @@ export default function TodoPage() {
         description: values.description,
         userId: user?.uid,
       });
-      toast.success('Todo added successfully!', {
+      toast.success('Added successfully!', {
         autoClose: 1200,
       });
       setTimeout(() => {

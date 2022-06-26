@@ -12,7 +12,7 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function DeleteTodoModal(props) {
-  const { onPressDeleteTodo, myTodo } = props;
+  const { handleDeleteTodo, myTodo } = props;
   let location = useLocation();
   const navigate = useNavigate();
 
@@ -20,21 +20,24 @@ export default function DeleteTodoModal(props) {
     <>
       <Modal
         isOpen={location.state?.backgroundLocation ? true : false}
+        isCentered
         onClose={() => navigate(-1)}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>You want to delete?</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>Are you sure you want to delete this TODO?</ModalBody>
+          <ModalBody>Are you sure to delete {myTodo.title}?</ModalBody>
 
-          <ModalFooter>
+          <ModalFooter key={myTodo.id}>
             <Button
               colorScheme='green'
               mr={3}
-              onClick={() => onPressDeleteTodo(myTodo.id)}>
+              onClick={() => handleDeleteTodo(myTodo.id)}>
               Delete
             </Button>
-            <Button variant='ghost'>Cancel</Button>
+            <Button variant='ghost' onClick={() => navigate(-1)}>
+              Cancel
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

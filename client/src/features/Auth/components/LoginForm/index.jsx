@@ -14,6 +14,7 @@ import {
   Text,
   VStack,
   Checkbox,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { Form, Formik } from 'formik';
 import React from 'react';
@@ -41,12 +42,12 @@ export default function LoginForm(props) {
 
   return (
     <>
-      <Heading size='2xl' color='green'>
+      <Heading size='2xl' color={useColorModeValue('green', 'green.400')}>
         Welcome back
       </Heading>
 
       <Box py='3'>
-        <Text color='gray.600'>
+        <Text color={useColorModeValue('gray.600', 'gray.200')}>
           Enter your credentials to access your account.
         </Text>
       </Box>

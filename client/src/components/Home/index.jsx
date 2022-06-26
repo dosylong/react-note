@@ -3,9 +3,12 @@ import Banner from '../Banner';
 import { Box, Heading, SimpleGrid } from '@chakra-ui/react';
 import TodoCard from '../../features/Todo/components/TodoCard';
 import todoApi from '../../api/todoApi';
+import userApi from '../../api/userApi';
 
 export default function Home() {
   const [myTodo, setMyTodo] = useState([]);
+  const [myInfo, setMyInfo] = useState({});
+  const currentUser = JSON.parse(localStorage.getItem('account'));
 
   useEffect(() => {
     const getMyTodo = async () => {
@@ -19,39 +22,44 @@ export default function Home() {
     getMyTodo();
   }, []);
 
-  const handleDeleteTodo = async (id) => {
-    try {
-      const response = await todoApi.deleteTodo({
-        id: id,
-      });
-      setMyTodo(myTodo.filter((todo) => todo.id !== response.id));
-      console.log('delete at id: ', id);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    const getUser = async () => {
+      if (!currentUser) return;
+      try {
+        const response = await userApi.getUser({
+          userFirebaseId: currentUser?.uid,
+        });
+        setMyInfo(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUser();
+  }, [currentUser]);
+
   return (
     <>
       <Box maxH='auto' maxW='auto'>
         <Banner />
 
-        <Heading py='5' fontSize='33'>
-          Latest TODO
-        </Heading>
+        {!currentUser ? null : (
+          <Heading py='5' px='1' fontSize='33'>
+            {myInfo.name}'s latest TODO
+          </Heading>
+        )}
+
         <SimpleGrid
           pt='5'
           pb='5'
+          px='1'
           columns={{ base: 2, sm: 1, md: 2, lg: 3, xl: 3 }}
           spacing={{ base: 2, sm: 7 }}>
-          {myTodo?.map((todo) => {
-            return (
-              <TodoCard
-                key={todo.id}
-                myTodo={todo}
-                handleDeleteTodo={handleDeleteTodo}
-              />
-            );
-          })}
+          {myTodo?.map(
+            (todo) =>
+              myInfo?.userFirebaseId === todo?.userId && (
+                <TodoCard key={todo.id} todo={todo} />
+              )
+          )}
         </SimpleGrid>
       </Box>
     </>

@@ -13,6 +13,7 @@ import {
   InputRightElement,
   FormErrorMessage,
   Flex,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { RiLockPasswordLine } from 'react-icons/ri';
 import { HiOutlineMail } from 'react-icons/hi';
@@ -66,13 +67,13 @@ export default function RegisterForm(props) {
 
   return (
     <>
-      <Heading size='2xl' color='green'>
+      <Heading size='2xl' color={useColorModeValue('green', 'green.400')}>
         Get's started
       </Heading>
 
       <Box py='3'>
-        <Text color='gray.600'>
-          Let's get you all set up in order to find your favorite recipe.
+        <Text color={useColorModeValue('gray.600', 'gray.200')}>
+          Let's get you all set up in order to save your TODO.
         </Text>
       </Box>
 
