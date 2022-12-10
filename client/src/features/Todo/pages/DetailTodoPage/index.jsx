@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import TodoModal from '../../components/TodoModal';
+import DetailTodoModal from '../../components/DetailTodoModal';
 import todoApi from '../../../../api/todoApi';
 
 export default function DetailTodoPage() {
@@ -21,5 +21,5 @@ export default function DetailTodoPage() {
     getMyOwnTodo();
   }, [id]);
 
-  return <TodoModal modalTitle={myTodo.title} modalBody={myTodo.description} />;
+  return <DetailTodoModal myTodo={myTodo} />;
 }

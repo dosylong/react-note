@@ -39,12 +39,12 @@ export default function TodoCard(props) {
           <Link
             to={`todo/detail/${todo.id}`}
             state={{ backgroundLocation: location }}>
-            <Tooltip hasArrow label='Show more' bg='gray.300' color='black'>
+            <Tooltip hasArrow label='Show detail' bg='gray.300' color='black'>
               <Image
                 height={{ base: '150px', sm: '300px' }}
                 loading='eager'
                 w={'full'}
-                src='https://www.sunnyskyz.com/uploads/2021/03/ufp23-cat-with-bowl-cut-2.jpg'
+                src='https://static.vecteezy.com/system/resources/previews/002/531/065/original/task-list-illustration-vector.jpg'
                 objectFit={'cover'}
                 cursor='pointer'
               />
@@ -75,7 +75,10 @@ export default function TodoCard(props) {
           <Stack direction={'row'} justify={'flex-start'} mb='2'>
             <Stack flex={1} spacing={1} align={'flex-start'} py='3'>
               <Text as='span' fontSize={{ base: 'xs', sm: 'sm' }}>
-                <Text color={useColorModeValue('black', 'white')} fontSize='md'>
+                <Text
+                  color={useColorModeValue('black', 'white')}
+                  fontSize='md'
+                  fontWeight='bold'>
                   Changed at:{' '}
                   {moment(
                     todo.createdAt ? todo.updatedAt : todo.createdAt

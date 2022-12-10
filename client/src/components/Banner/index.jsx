@@ -15,10 +15,8 @@ export default function Banner() {
       <Flex p={8} flex={1} align={'center'} justify={'center'}>
         <Stack spacing={6} w={'full'} maxW={'lg'}>
           <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
-            <Text as={'span'}>Notice Me</Text>
-            <br />{' '}
             <Text color={'green.400'} as={'span'}>
-              Todo List Project
+              Note Project
             </Text>{' '}
           </Heading>
           <Text

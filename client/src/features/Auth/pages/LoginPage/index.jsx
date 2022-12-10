@@ -1,4 +1,4 @@
-import { Box, Center, Container, Image, Stack } from '@chakra-ui/react';
+import { Box, Center, Container, Image, Stack, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import LoginForm from '../../components/LoginForm';
 import { auth } from '../../../../firebase';
@@ -6,6 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import firebase from 'firebase/app';
 import LoginImage from '../../../../assets/banner.png';
+import { Link } from 'react-router-dom';
 //import userApi from '../../../../api/userApi';
 
 export default function LoginPage() {
@@ -68,8 +69,27 @@ export default function LoginPage() {
   };
 
   return (
-    <Stack spacing='0' direction={['column', 'row']} h='100vh' w='100vw'>
+    <Stack
+      spacing='0'
+      direction={['column', 'row']}
+      maxH='100vh'
+      maxW='100vw'
+      h='90vh'>
       <Box flex='1'>
+        <Box
+          w='100%'
+          h='auto'
+          margin='12px'
+          pl='25px'
+          fontSize='xl'
+          color='green'
+          fontWeight='bold'
+          _hover={{
+            color: 'green.800',
+            cursor: 'pointer',
+          }}>
+          <Link to='/'>Notice Me 📝</Link>
+        </Box>
         <Image
           w='100%'
           h='100%'
@@ -79,7 +99,7 @@ export default function LoginPage() {
         />
       </Box>
       <Box flex='1'>
-        <Center h='100vh'>
+        <Center h='100vh' w='100w'>
           <Container>
             <LoginForm
               showPassword={showPassword}
